@@ -8,7 +8,10 @@ df['col1'].apply(lambda x : x.strip().capitalize())
 ```
 ##### mapping - more efficient for applying methods to a single column (series vs. entire row)
 ```python
-df['colA'] = df['colA'].map(lambda x: x + 1)
+df['col1'].map(lambda x: x + 1)
+
+#Ternary if statement mapped to single col
+df['Col1'].map(lambda x: 1500 if x =='Music' else 800)
 ```
 #### multiple columns 
 ##### same function
@@ -37,9 +40,11 @@ for index, row in df.iterrows():
 
 ##### conditional new column
 ```python
-## ternary if statement
+# Ternary if statement
 df['Price'] = [1500 if x =='Music' else 800 for x in df['Event']]
 
+# Apply/Map
+df['Price'] = df['Event'].map(lambda x: 1500 if x =='Music' else 800)
 
 
 ```
