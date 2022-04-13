@@ -67,6 +67,8 @@ df.sort_values(by='col1', ascending=False)
 df.groupby(['a','b'])['c'].sum()
 
 # Multiple aggregations
+df.groupby(['Gender','State'])[['col_1', 'col_2']].agg([min, max])
+
 # Aggregations:
 #'sum', 'min', 'max', 'count', 'mean'
 
@@ -76,6 +78,11 @@ aggregations = {'shortcode' :'count',
 
 # as_index so you don't have to .reset_index() later
 df.groupby(company_info, as_index = False).agg(aggregations)
+
+# With lambda function
+df.groupby('Sex').Age.agg(
+    ['max', 'mean', lambda x: True if x.mean() > 50 else False]
+)
 ```
 
 ##### drop
