@@ -1,6 +1,6 @@
 # pandas shenanigans
 
-### Dataframe Manipulation
+### 1) Dataframe Manipulation
 #### single column
 ##### apply/lambda
 ```python
@@ -28,7 +28,6 @@ def col_func(x):
 df.apply(col_func, axis=1)   
 ```
 
-
 ##### iterating
 ```python
 for index, row in df.iterrows():
@@ -45,10 +44,7 @@ df['Price'] = [1500 if x =='Music' else 800 for x in df['Event']]
 
 # Apply/Map
 df['Price'] = df['Event'].map(lambda x: 1500 if x =='Music' else 800)
-
-
 ```
-
 
 ##### filtering 
 ```python 
@@ -61,7 +57,27 @@ rslt_df = dataframe[~dataframe['Stream'].isin(options)]
 
 # Both conditions
 rslt_df = dataframe[(dataframe['Age'] == 21) & dataframe['Stream'].isin(options)]
+
+# Sorting 
+df.sort_values(by='col1', ascending=False)
 ```
+##### aggregations
+```python
+# Simple
+df.groupby(['a','b'])['c'].sum()
+
+# Multiple aggregations
+# Aggregations:
+#'sum', 'min', 'max', 'count', 'mean'
+
+aggregations = {'shortcode' :'count',
+                'is_video' : np.mean,
+                'is_sponsored': np.mean}
+
+# as_index so you don't have to .reset_index() later
+df.groupby(company_info, as_index = False).agg(aggregations)
+```
+
 ##### drop
 ```python
 df = df.dropna(how = 'all')
@@ -82,14 +98,17 @@ df = df.rename(columns = {"Col_1":"Mod_col"})
 ## add x to every column name
 df = df.rename(columns=lambda x: x+'x')
 ```
+##### types
+```python
+df["somecolumn"].astype(int)
+```
+
 ##### Text?
 ```python
 df1 = df['Position'].str.contains("PG")
 ```
 
-
-
-### create dataframe
+### 2) create dataframe
 - list
 - dict
 - list of dicts
@@ -132,8 +151,7 @@ frame = { 'Author': auth_series, 'Article': article_series }
 result = pd.DataFrame(frame)
 ``` 
 
-
-### Combinging Data
+### 3) Combinging Data
 
 ##### mapping new data
 ```python
@@ -149,14 +167,14 @@ df["new_col"] = df["old_col_to_match"].map(new_data)
 ```
 ##### replacing new data
 ```python
-new_data = { "col1":"val1",
-             "col2":"val2",
-             "col5":"val5",
-             "col3":"val3",
-             "col4":"val4"
-              }
+df[col].map({'yes':True, 'no':False})
+```
 
-df = df.replace({"old_col_to_match":new_data})
+##### merge/concat
+```python
+df1.merge(df2, how='left', on='a')
+
+df1.concat(df2)
 ```
 
 
