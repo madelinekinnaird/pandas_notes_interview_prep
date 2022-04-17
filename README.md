@@ -1,4 +1,4 @@
-# pandas shenanigans
+# Pandas Shenanigans
 
 ### 1) Dataframe Manipulation
 #### single column
